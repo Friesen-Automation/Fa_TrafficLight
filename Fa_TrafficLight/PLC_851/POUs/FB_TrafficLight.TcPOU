@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_TrafficLight" Id="{aaddba8e-ced5-4396-9c8c-6bc2ed214f5f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TrafficLight
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	state		: INT;
+	tRed		: TON;		// Leuchtdauer Rot
+	tRedYellow	: TON;	 	// Leuchtdauer RotGelb
+	tGreen		: TON;		// Leuchtaduer Gruen
+	tYellow		: TON;		// Leuchtdauer Gelb
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE state OF
+	0:
+			LED_Red	:= FALSE;
+			LED_Yellow := bBlink;
+			LED_Green := FALSE;
+	
+	1:
+			LED_Red	:= TRUE;
+			LED_Yellow := FALSE;
+			LED_Green := FALSE;
+			IF tRed.Q THEN
+				state := 2;
+			END_IF
+			
+	2:
+			LED_Red	:= TRUE;
+			LED_Yellow := TRUE;
+			LED_Green := FALSE;
+			IF tRedYellow.Q THEN
+				state := 3;
+			END_IF
+			
+	3:
+			LED_Red	:= FALSE;
+			LED_Yellow := FALSE;
+			LED_Green := TRUE;
+			IF tGreen.Q THEN
+				state :=4;
+			END_IF
+			
+	4:
+			LED_Red	:= FALSE;
+			LED_Yellow := TRUE;
+			LED_Green := FALSE;
+			IF tYellow.Q THEN
+				state := 1;
+			END_IF
+ELSE
+			LED_Yellow := bBlink;
+			LED_Red	:= FALSE;
+			LED_Green := FALSE;
+END_CASE
+
+IF btnReset THEN
+	state := 0;
+	ELSE ;
+END_IF
+
+IF btnActive AND (state = 0) THEN
+	state := 1;
+END_IF
+
+
+// Timer
+
+tRed(	IN:=(state = 1),
+		PT := T#2S);
+		
+tRedYellow(	IN:=(state = 2),
+		PT := T#2S);
+		
+tGreen(	IN:=(state = 3),
+		PT := T#2S);
+
+tYellow(	IN:=(state = 4),
+		PT := T#2S);
+		
+		
+		
+		]]></ST>
+    </Implementation>
+    <LineIds Name="FB_TrafficLight">
+      <LineId Id="744" Count="68" />
+      <LineId Id="84" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>
