@@ -16,41 +16,41 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[CASE state OF
-	0:
+	E_TL_Phase.INIT:
 			LED_Red	:= FALSE;
 			LED_Yellow := bBlink;
 			LED_Green := FALSE;
 	
-	1:
+	E_TL_Phase.RED:
 			LED_Red	:= TRUE;
 			LED_Yellow := FALSE;
 			LED_Green := FALSE;
 			IF tRed.Q THEN
-				state := 2;
+				state := E_TL_Phase.YELLOWRED;
 			END_IF
 			
-	2:
+	E_TL_Phase.YELLOWRED:
 			LED_Red	:= TRUE;
 			LED_Yellow := TRUE;
 			LED_Green := FALSE;
 			IF tRedYellow.Q THEN
-				state := 3;
+				state := E_TL_Phase.GREEN;
 			END_IF
 			
-	3:
+	E_TL_Phase.GREEN:
 			LED_Red	:= FALSE;
 			LED_Yellow := FALSE;
 			LED_Green := TRUE;
 			IF tGreen.Q THEN
-				state :=4;
+				state :=E_TL_Phase.YELLOW;
 			END_IF
 			
-	4:
+	E_TL_Phase.YELLOW:
 			LED_Red	:= FALSE;
 			LED_Yellow := TRUE;
 			LED_Green := FALSE;
 			IF tYellow.Q THEN
-				state := 1;
+				state := E_TL_Phase.RED;
 			END_IF
 ELSE
 			LED_Yellow := bBlink;
@@ -59,27 +59,27 @@ ELSE
 END_CASE
 
 IF btnReset THEN
-	state := 0;
+	state := E_TL_Phase.INIT;
 	ELSE ;
 END_IF
 
 IF btnActive AND (state = 0) THEN
-	state := 1;
+	state := E_TL_Phase.RED;
 END_IF
 
 
 // Timer
 
-tRed(	IN:=(state = 1),
+tRed(	IN:=(state =  E_TL_Phase.RED),
 		PT := T#2S);
 		
-tRedYellow(	IN:=(state = 2),
+tRedYellow(	IN:=(state =  E_TL_Phase.YELLOWRED),
 		PT := T#2S);
 		
-tGreen(	IN:=(state = 3),
+tGreen(	IN:=(state =  E_TL_Phase.GREEN),
 		PT := T#2S);
 
-tYellow(	IN:=(state = 4),
+tYellow(	IN:=(state =  E_TL_Phase.YELLOW),
 		PT := T#2S);
 		
 		
