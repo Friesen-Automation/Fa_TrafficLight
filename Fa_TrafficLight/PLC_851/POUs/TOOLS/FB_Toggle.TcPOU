@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_Toggle" Id="{bc35b369-10af-48ab-a6d8-07058ca157a8}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_Toggle
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	Timer_1s 	: TON; 		// Timer für den Takt
+	Timer_500ms	: TON;		// Timer für Ampelblinktakt
+	Cycle_1s	: BOOL;		// Tooglevariable
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[// Timmer 1s Zyklus
+Timer_1s(IN:=NOT Timer_1s.Q ,
+		 PT:=T#1S );
+		 
+Cycle_1s := Cycle_1s XOR Timer_1s.Q;
+
+//Timer für Ampelblinktakt
+Timer_500ms(IN:=NOT Timer_500ms.Q ,
+		 	PT:=T#600MS );
+			
+bBlink := bBlink XOR Timer_500ms.Q;
+		 ]]></ST>
+    </Implementation>
+    <LineIds Name="FB_Toggle">
+      <LineId Id="57" Count="0" />
+      <LineId Id="9" Count="0" />
+      <LineId Id="14" Count="1" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="28" Count="0" />
+      <LineId Id="27" Count="0" />
+      <LineId Id="30" Count="3" />
+      <LineId Id="29" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

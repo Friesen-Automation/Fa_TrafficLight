@@ -84,7 +84,7 @@
                     </o>
                     <o>
                       <v n="Id">743958181L</v>
-                      <v n="Value">"GVL_HMI_TrafficLight.LED_Rot"</v>
+                      <v n="Value">"GVL_HMI_TrafficLight.LED_Red"</v>
                     </o>
                   </l>
                 </o>
@@ -178,7 +178,7 @@
                     </o>
                     <o>
                       <v n="Id">743958181L</v>
-                      <v n="Value">"GVL_HMI_TrafficLight.LED_Gelb"</v>
+                      <v n="Value">"GVL_HMI_TrafficLight.LED_Yellow"</v>
                     </o>
                   </l>
                 </o>
@@ -272,7 +272,7 @@
                     </o>
                     <o>
                       <v n="Id">743958181L</v>
-                      <v n="Value">"GVL_HMI_TrafficLight.LED_Gruen"</v>
+                      <v n="Value">"GVL_HMI_TrafficLight.LED_Green"</v>
                     </o>
                   </l>
                 </o>
