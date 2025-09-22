@@ -1,0 +1,95 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+  <POU Name="FB_TrafficLight_STP" Id="{8df97223-95b4-4927-b573-a080dc1a659c}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TrafficLight_STP
+VAR_INPUT
+END_VAR
+VAR_OUTPUT
+END_VAR
+VAR
+	iStep		: INT;		// Schrittnummer
+	tRed		: TON;		// Leuchtdauer Rot
+	tRedYellow	: TON;	 	// Leuchtdauer RotGelb
+	tGreen		: TON;		// Leuchtaduer Gruen
+	tYellow		: TON;		// Leuchtdauer Gelb
+
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[CASE iStep OF
+	0:	// INIT
+			LED_Red	:= FALSE;
+			LED_Yellow := bBlink;
+			LED_Green := FALSE;
+	
+	1:	// RED
+			LED_Red	:= TRUE;
+			LED_Yellow := FALSE;
+			LED_Green := FALSE;
+			IF tRed.Q THEN
+				iStep := E_TL_Phase.YELLOWRED;
+			END_IF
+			
+	2:	// YELLOWRED
+			LED_Red	:= TRUE;
+			LED_Yellow := TRUE;
+			LED_Green := FALSE;
+			IF tRedYellow.Q THEN
+				iStep := E_TL_Phase.GREEN;
+			END_IF
+			
+	3:	// GREEN
+			LED_Red	:= FALSE;
+			LED_Yellow := FALSE;
+			LED_Green := TRUE;
+			IF tGreen.Q THEN
+				iStep :=E_TL_Phase.YELLOW;
+			END_IF
+			
+	4:	// YELLOW
+			LED_Red	:= FALSE;
+			LED_Yellow := TRUE;
+			LED_Green := FALSE;
+			IF tYellow.Q THEN
+				iStep := E_TL_Phase.RED;
+			END_IF
+ELSE
+			LED_Yellow := bBlink;
+			LED_Red	:= FALSE;
+			LED_Green := FALSE;
+END_CASE
+
+IF btnReset THEN
+	iStep := E_TL_Phase.INIT;
+	ELSE ;
+END_IF
+
+IF btnActive AND (iStep = 0) THEN
+	iStep := E_TL_Phase.RED;
+END_IF
+
+
+// Timer
+
+tRed(		IN:=(iStep = 1),
+			PT := T#2S);
+		
+tRedYellow(	IN:=(iStep = 2),
+			PT := T#2S);
+		
+tGreen(		IN:=(iStep = 3),
+			PT := T#2S);
+
+tYellow(	IN:=(iStep = 4),
+			PT := T#2S);
+		
+		
+		
+		]]></ST>
+    </Implementation>
+    <LineIds Name="FB_TrafficLight_STP">
+      <LineId Id="851" Count="68" />
+      <LineId Id="84" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

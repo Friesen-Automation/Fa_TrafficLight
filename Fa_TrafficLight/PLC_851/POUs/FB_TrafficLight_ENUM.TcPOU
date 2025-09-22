@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
-  <POU Name="FB_TrafficLight" Id="{aaddba8e-ced5-4396-9c8c-6bc2ed214f5f}" SpecialFunc="None">
-    <Declaration><![CDATA[FUNCTION_BLOCK FB_TrafficLight
+  <POU Name="FB_TrafficLight_ENUM" Id="{aaddba8e-ced5-4396-9c8c-6bc2ed214f5f}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_TrafficLight_ENUM
 VAR_INPUT
 END_VAR
 VAR_OUTPUT
@@ -86,7 +86,7 @@ tYellow(	IN:=(state =  E_TL_Phase.YELLOW),
 		
 		]]></ST>
     </Implementation>
-    <LineIds Name="FB_TrafficLight">
+    <LineIds Name="FB_TrafficLight_ENUM">
       <LineId Id="744" Count="68" />
       <LineId Id="84" Count="0" />
     </LineIds>

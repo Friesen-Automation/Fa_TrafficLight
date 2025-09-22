@@ -2,15 +2,24 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <GVL Name="GVL_HMI_TrafficLight" Id="{ac20dcd6-06b5-4357-89f9-cb0f4ab2f63b}">
     <Declaration><![CDATA[VAR_GLOBAL
+	// Ampel 1
+	LED_Red			: BOOL;
+	LED_Yellow		: BOOL;
+	LED_Green		: BOOL;
 	
-	LED_Red	: BOOL;
-	LED_Yellow: BOOL;
-	LED_Green	: BOOL;
+	btnReset		: BOOL;
+	btnActive		: BOOL;
 	
-	btnReset	: BOOL;
-	btnActive	: BOOL;
+	// Ampel 2
+	LED_Red_1		: BOOL;
+	LED_Yellow_1	: BOOL;
+	LED_Green_1		: BOOL;
 	
-	bBlink	: BOOL;
+	btnReset_1		: BOOL;
+	btnActive_1		: BOOL;
+	
+	bBlink			: BOOL;
+
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>

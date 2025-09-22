@@ -4,16 +4,19 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
 	fbTakt	: FB_Toggle;
-	fbTrafficLight	: FB_TrafficLight;
+	fbTrafficLight_enum	: FB_TrafficLight_ENUM;
+	fbTrafficLight_stp	: FB_TrafficLight_STP;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[fbTakt();
-fbTrafficLight();]]></ST>
+fbTrafficLight_enum();
+fbTrafficLight_stp();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="2" Count="0" />
+      <LineId Id="19" Count="0" />
       <LineId Id="8" Count="0" />
+      <LineId Id="21" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
