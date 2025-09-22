@@ -16,42 +16,44 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[CASE iStep OF
+      <ST><![CDATA[
+
+CASE iStep OF
 	0:	// INIT
-			LED_Red	:= FALSE;
-			LED_Yellow := bBlink;
-			LED_Green := FALSE;
+			LED_Red_1	:= FALSE;
+			LED_Yellow_1 := bBlink;
+			LED_Green_1 := FALSE;
 	
 	1:	// RED
-			LED_Red	:= TRUE;
-			LED_Yellow := FALSE;
-			LED_Green := FALSE;
+			LED_Red_1	:= TRUE;
+			LED_Yellow_1 := FALSE;
+			LED_Green_1 := FALSE;
 			IF tRed.Q THEN
-				iStep := E_TL_Phase.YELLOWRED;
+				iStep :=2;
 			END_IF
 			
 	2:	// YELLOWRED
-			LED_Red	:= TRUE;
-			LED_Yellow := TRUE;
-			LED_Green := FALSE;
+			LED_Red_1	:= TRUE;
+			LED_Yellow_1 := TRUE;
+			LED_Green_1 := FALSE;
 			IF tRedYellow.Q THEN
-				iStep := E_TL_Phase.GREEN;
+				iStep := 3;
 			END_IF
 			
 	3:	// GREEN
-			LED_Red	:= FALSE;
-			LED_Yellow := FALSE;
-			LED_Green := TRUE;
+			LED_Red_1	:= FALSE;
+			LED_Yellow_1 := FALSE;
+			LED_Green_1 := TRUE;
 			IF tGreen.Q THEN
-				iStep :=E_TL_Phase.YELLOW;
+				iStep := 4;
 			END_IF
 			
 	4:	// YELLOW
-			LED_Red	:= FALSE;
-			LED_Yellow := TRUE;
-			LED_Green := FALSE;
+			LED_Red_1	:= FALSE;
+			LED_Yellow_1 := TRUE;
+			LED_Green_1 := FALSE;
 			IF tYellow.Q THEN
-				iStep := E_TL_Phase.RED;
+				iStep := 1;
 			END_IF
 ELSE
 			LED_Yellow := bBlink;
@@ -59,13 +61,13 @@ ELSE
 			LED_Green := FALSE;
 END_CASE
 
-IF btnReset THEN
-	iStep := E_TL_Phase.INIT;
+IF btnReset_1 THEN
+	iStep := 0;
 	ELSE ;
 END_IF
 
-IF btnActive AND (iStep = 0) THEN
-	iStep := E_TL_Phase.RED;
+IF btnActive_1 AND (iStep = 0) THEN
+	iStep := 1;
 END_IF
 
 
@@ -88,6 +90,7 @@ tYellow(	IN:=(iStep = 4),
 		]]></ST>
     </Implementation>
     <LineIds Name="FB_TrafficLight_STP">
+      <LineId Id="921" Count="1" />
       <LineId Id="851" Count="68" />
       <LineId Id="84" Count="0" />
     </LineIds>

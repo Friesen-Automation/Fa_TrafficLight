@@ -7,7 +7,7 @@ END_VAR
 VAR_OUTPUT
 END_VAR
 VAR
-	state		: INT;
+	state		: E_TL_Phase;
 	tRed		: TON;		// Leuchtdauer Rot
 	tRedYellow	: TON;	 	// Leuchtdauer RotGelb
 	tGreen		: TON;		// Leuchtaduer Gruen

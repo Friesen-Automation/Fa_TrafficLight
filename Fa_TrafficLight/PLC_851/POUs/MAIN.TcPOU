@@ -3,19 +3,18 @@
   <POU Name="MAIN" Id="{79d0d9a2-6072-47c5-b5c5-45b55f6a637d}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-	fbTakt	: FB_Toggle;
+	fbClock	: FB_Toggle;
 	fbTrafficLight_enum	: FB_TrafficLight_ENUM;
 	fbTrafficLight_stp	: FB_TrafficLight_STP;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[fbTakt();
+      <ST><![CDATA[fbClock();
 fbTrafficLight_enum();
 fbTrafficLight_stp();]]></ST>
     </Implementation>
     <LineIds Name="MAIN">
-      <LineId Id="19" Count="0" />
-      <LineId Id="8" Count="0" />
+      <LineId Id="28" Count="1" />
       <LineId Id="21" Count="0" />
     </LineIds>
   </POU>
